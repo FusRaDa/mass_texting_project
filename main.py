@@ -42,8 +42,8 @@ def get_list_of_number_and_name():
 
 def text_phone_number(application, number, name):
 
-    message = "Hello " + name + "! This is a test of the AYP messaging bot. " + \
-              "Please reply to confirm you have received this message. - Matthew Rada "
+    message = "Hello " + str(name) + "! This is a test of the AYP messaging bot. Please reply to confirm you have " \
+                                     "received this message. - Matthew Rada ayp.me/give "
 
     send_message = application['Grasshopper App'].child_window(title="Send a Message",
                                                                control_type="DataItem").wrapper_object()
