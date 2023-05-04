@@ -42,7 +42,8 @@ def get_list_of_number_and_name():
 
 def text_phone_number(application, number, name):
 
-    message = "Hi there " + name + "!"
+    message = "Hello " + name + "! This is a test of the AYP messaging bot. " + \
+              "Please reply to confirm you have received this message. - Matthew Rada "
 
     send_message = application['Grasshopper App'].child_window(title="Send a Message",
                                                                control_type="DataItem").wrapper_object()
@@ -75,6 +76,7 @@ def begin_mass_texting(dict_list):
 
         for i in range(len(dict_list)):
             text_phone_number(app, dict_list[i]['number'], dict_list[i]['name'])
+            print("row " + str(i+2) + " has been processed")
 
     except pywinauto.application.ProcessNotFoundError:
         print("failed to connect to app, grasshopper desktop app must be launched and logged in")
