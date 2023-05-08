@@ -7,18 +7,17 @@ path = 'C:\\Users\\FusRada\\Desktop\\contacts.xlsx'
 
 def create_new_excel_file(data_list):
     wb = Workbook()
-    wb.save("refined_contacts")
 
     ws = wb.active
     ws.title = "Contacts"
     ws['A1'] = "Names"
     ws['B1'] = "Phone Numbers"
 
+    for x in range(len(data_list)):
+        ws['A' + str(x + 2)] = data_list[x]['name']
+        ws['B' + str(x + 2)] = data_list[x]['number']
 
-
-
-
-
+    wb.save("refined_contacts.xlsx")
 
 
 def get_excel_data():
@@ -66,19 +65,19 @@ def refine_excel_data(raw_data):
 
         refined_list.append(data_dict)
 
-    print(refined_list.__len__())
-
     # create list of landlines that need to be removed
     remove_list = []
     for x in range(len(refined_list)):
+
         if refined_list[x]['number'].__len__() > 11:
+            remove_list.append(refined_list[x])
+
+        if refined_list[x]['number'].__len__() < 10:
             remove_list.append(refined_list[x])
 
     # remove landlines from refined_list
     for x in range(len(remove_list)):
         refined_list.remove(remove_list[x])
-
-    print(refined_list.__len__())
 
     # remove country code that is not USA/Canada
     remove_country = []
@@ -95,11 +94,30 @@ def refine_excel_data(raw_data):
     for x in range(len(remove_country)):
         refined_list.remove(remove_country[x])
 
-    print(refined_list.__len__())
-
     final_list = list({v['number']: v for v in refined_list}.values())
 
-    print(final_list)
+    return final_list
 
 
-refine_excel_data(get_excel_data())
+excel_data = get_excel_data()
+
+refined_data = refine_excel_data(excel_data)
+
+print(refined_data.__len__())
+
+
+def validate_numbers(data):
+
+    for x in range(len(data)):
+        num = data[x]['number']
+        if len(data[x]['number']) != 10 and len(data[x]['number']) != 11:
+            print("Validation Failed: " + str(data[x]))
+
+        if not num.isnumeric():
+            print("Validation Failed: " + str(data[x]))
+
+
+validate_numbers(refined_data)
+
+
+create_new_excel_file(refined_data)
