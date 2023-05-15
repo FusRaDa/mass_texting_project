@@ -1,5 +1,5 @@
 import time
-
+import random
 import openpyxl
 import pywinauto.application
 from pywinauto.application import Application
@@ -40,7 +40,12 @@ def get_list_of_number_and_name():
     return full_list
 
 
-def text_phone_number(application, number, name):
+def text_phone_number(application, number, name, row):
+
+    num = 0
+
+    if row % 2 == 0:
+        num = 1
 
     message = str(name) + "! Get $20 off AYP Convention tickets - now till midnight tomorrow. Use CODE \"AYP20\" @ " \
                           "AYP.me/convention. Check your email for more info & sign up today! - AYP Team "
@@ -49,24 +54,24 @@ def text_phone_number(application, number, name):
                                                                control_type="DataItem").wrapper_object()
     send_message.click_input()
 
-    time.sleep(5)
-
     input_number = application['Grasshopper App'].child_window(title="Type a phone number", auto_id="sms-dialed-num",
                                                                control_type="Edit").wrapper_object()
     input_number.click_input()
     input_number.type_keys(number)
 
-    time.sleep(5)
+    time.sleep(random.randint(2, 4) + 1)
 
     emoji = application['Grasshopper App'].child_window(title="Emoji Picker", control_type="Image").wrapper_object()
     emoji.click_input()
 
     input_message = application['Grasshopper App'].child_window(title="Type a message",
                                                                 control_type="Edit").wrapper_object()
-    time.sleep(5)
+    time.sleep(random.randint(2, 4) + 1)
 
     input_message.click_input()
     input_message.type_keys(message + "{ENTER}", with_spaces=True)
+
+    time.sleep(random.randint(2, 4) + 1)
 
 
 def begin_mass_texting(dict_list):
@@ -79,7 +84,7 @@ def begin_mass_texting(dict_list):
         messages_tab.click_input()
 
         for i in range(len(dict_list)):
-            text_phone_number(app, dict_list[i]['number'], dict_list[i]['name'])
+            text_phone_number(app, dict_list[i]['number'], dict_list[i]['name'], i)
             print("row " + str(i+2) + " has been processed")
 
     except pywinauto.application.ProcessNotFoundError:
