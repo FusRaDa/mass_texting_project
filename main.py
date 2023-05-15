@@ -8,14 +8,14 @@ from pywinauto.application import Application
 
 # grasshopper desktop app must be launched and logged in
 
-excel_file_path = 'C:\\Users\\FusRada\\Desktop\\test_sheet.xlsx'
+excel_file_path = 'C:\\Users\\FusRada\\Desktop\\refined_contacts.xlsx'
 
 
 def get_list_of_number_and_name():
     wb = openpyxl.load_workbook(excel_file_path)
     sheet = wb.active
 
-    column_a = sheet['A']
+    column_a = sheet['C']
     column_b = sheet['B']
 
     phone_number_array = []
@@ -42,27 +42,31 @@ def get_list_of_number_and_name():
 
 def text_phone_number(application, number, name):
 
-    message = "Hello " + str(name) + "! This is a test of the AYP messaging bot. Please reply to confirm you have " \
-                                     "received this message. - Matthew Rada ayp.me/give "
+    message = str(name) + "! Get $20 off AYP Convention tickets - now till midnight tomorrow. Use CODE \"AYP20\" @ " \
+                          "AYP.me/convention. Check your email for more info & sign up today! - AYP Team "
 
     send_message = application['Grasshopper App'].child_window(title="Send a Message",
                                                                control_type="DataItem").wrapper_object()
     send_message.click_input()
+
+    time.sleep(5)
 
     input_number = application['Grasshopper App'].child_window(title="Type a phone number", auto_id="sms-dialed-num",
                                                                control_type="Edit").wrapper_object()
     input_number.click_input()
     input_number.type_keys(number)
 
+    time.sleep(5)
+
     emoji = application['Grasshopper App'].child_window(title="Emoji Picker", control_type="Image").wrapper_object()
     emoji.click_input()
 
     input_message = application['Grasshopper App'].child_window(title="Type a message",
                                                                 control_type="Edit").wrapper_object()
+    time.sleep(5)
+
     input_message.click_input()
     input_message.type_keys(message + "{ENTER}", with_spaces=True)
-
-    time.sleep(2)
 
 
 def begin_mass_texting(dict_list):

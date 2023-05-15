@@ -10,12 +10,14 @@ def create_new_excel_file(data_list):
 
     ws = wb.active
     ws.title = "Contacts"
-    ws['A1'] = "Names"
-    ws['B1'] = "Phone Numbers"
+    ws['A1'] = "Record ID"
+    ws['B1'] = "Names"
+    ws['C1'] = "Phone Numbers"
 
     for x in range(len(data_list)):
-        ws['A' + str(x + 2)] = data_list[x]['name']
-        ws['B' + str(x + 2)] = data_list[x]['number']
+        ws['A' + str(x + 2)] = data_list[x]['id']
+        ws['B' + str(x + 2)] = data_list[x]['name']
+        ws['C' + str(x + 2)] = data_list[x]['number']
 
     wb.save("refined_contacts.xlsx")
 
@@ -27,15 +29,18 @@ def get_excel_data():
     data = []
 
     for row in ws.iter_rows(ws.min_row + 1, ws.max_row):
-        row_dict = {'name': None, 'n1': None, 'n2': None}
+        row_dict = {'id': None, 'name': None, 'n1': None, 'n2': None}
         for cell in row:
             if cell.column == 1:
-                row_dict['name'] = cell.value
+                row_dict['id'] = cell.value
 
             if cell.column == 2:
-                row_dict['n1'] = cell.value
+                row_dict['name'] = cell.value
 
             if cell.column == 3:
+                row_dict['n1'] = cell.value
+
+            if cell.column == 4:
                 row_dict['n2'] = cell.value
 
         data.append(row_dict)
@@ -54,7 +59,7 @@ def refine_excel_data(raw_data):
 
     # determine texting number for name, check first for mobile and if not present then use home number
     for x in range(len(raw_data)):
-        data_dict = {'name': raw_data[x]['name'], 'number': None}
+        data_dict = {'id': raw_data[x]['id'], 'name': raw_data[x]['name'], 'number': None}
 
         if raw_data[x]['n1'] != '':
             value = extract_numbers(raw_data[x]['n1'])
@@ -95,6 +100,11 @@ def refine_excel_data(raw_data):
         refined_list.remove(remove_country[x])
 
     final_list = list({v['number']: v for v in refined_list}.values())
+
+    for x in range(len(final_list)):
+        first_digit = final_list[x]['number'][0]
+        if first_digit == "0":
+            print(final_list[x]['number'])
 
     return final_list
 
