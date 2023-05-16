@@ -54,24 +54,28 @@ def text_phone_number(application, number, name, row):
                                                                control_type="DataItem").wrapper_object()
     send_message.click_input()
 
+    time.sleep(random.randint(1, 3) + 1)
+
     input_number = application['Grasshopper App'].child_window(title="Type a phone number", auto_id="sms-dialed-num",
                                                                control_type="Edit").wrapper_object()
     input_number.click_input()
-    input_number.type_keys(number)
+    time.sleep(random.randint(1, 3) + 1)
 
-    time.sleep(random.randint(2, 4) + 1)
+    input_number.type_keys(number)
+    time.sleep(random.randint(1, 3) + 1)
 
     emoji = application['Grasshopper App'].child_window(title="Emoji Picker", control_type="Image").wrapper_object()
+
     emoji.click_input()
+    time.sleep(random.randint(1, 3) + 1)
 
     input_message = application['Grasshopper App'].child_window(title="Type a message",
                                                                 control_type="Edit").wrapper_object()
-    time.sleep(random.randint(2, 4) + 1)
-
     input_message.click_input()
-    input_message.type_keys(message + "{ENTER}", with_spaces=True)
+    time.sleep(random.randint(1, 3) + 1)
 
-    time.sleep(random.randint(2, 4) + 1)
+    input_message.type_keys(message + "{ENTER}", with_spaces=True)
+    time.sleep(random.randint(1, 3) + 1)
 
 
 def begin_mass_texting(dict_list):
