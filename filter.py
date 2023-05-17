@@ -1,6 +1,7 @@
 import re
 import openpyxl
 from openpyxl import Workbook
+import random
 
 path = 'C:\\Users\\FusRada\\Desktop\\contacts.xlsx'
 
@@ -127,7 +128,10 @@ def validate_numbers(data):
             print("Validation Failed: " + str(data[x]))
 
 
-validate_numbers(refined_data)
+# validate_numbers(refined_data)
+#
+#
+# create_new_excel_file(refined_data)
 
 
-create_new_excel_file(refined_data)
+

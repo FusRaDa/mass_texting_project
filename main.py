@@ -42,39 +42,47 @@ def get_list_of_number_and_name():
 
 def text_phone_number(application, number, name, row):
 
-    if row % 25 == 0:
-        time.sleep(300)
+    message_dict = {
+        1: " We are extending the AYP Convention Flash Sale till midnight tonight. Use CODE \"AYP20\" @ AYP.me/convention for $20 off your ticket. Check your email for more info & sign up by midnight! - AYP Team",
+        2: " Our Flash Sale for the AYP Convention has been extended till midnight tonight. Use CODE \"AYP20\" @ AYP.me/convention for $20 off your ticket. Check your email for more info & sign up today! - AYP Team",
+        3: " We are giving you one more day to use CODE \"AYP20\" @ AYP.me/convention for $20 off your convention ticket. Just sign up by midnight tonight - info is in your email inbox! - AYP Team",
+    }
 
-    message = str(name) + "! Get $20 off AYP Convention tickets till midnight tonight. Use CODE \"AYP20\" @ " \
-                          "AYP.me/convention. Check your email for more info & sign up today! - AYP Team"
+    row += 2
+
+    if row % 10 == 0:
+        print("rest for 2 min")
+        time.sleep(60)
+
+    message = str(name) + "!" + message_dict[random.randint(1, 3)]
 
     send_message = application['Grasshopper App'].child_window(title="Send a Message",
                                                                control_type="DataItem").wrapper_object()
     send_message.click_input()
 
-    time.sleep(random.randint(2, 3))
+    time.sleep(2)
 
     input_number = application['Grasshopper App'].child_window(title="Type a phone number", auto_id="sms-dialed-num",
                                                                control_type="Edit").wrapper_object()
     input_number.click_input()
 
-    time.sleep(random.randint(2, 3))
+    time.sleep(2)
 
     input_number.type_keys(number)
 
-    time.sleep(random.randint(2, 3))
+    time.sleep(2)
 
     emoji = application['Grasshopper App'].child_window(title="Emoji Picker", control_type="Image").wrapper_object()
 
     emoji.click_input()
 
-    time.sleep(random.randint(2, 3))
+    time.sleep(2)
 
     input_message = application['Grasshopper App'].child_window(title="Type a message",
                                                                 control_type="Edit").wrapper_object()
     input_message.click_input()
 
-    time.sleep(random.randint(2, 3))
+    time.sleep(2)
 
     input_message.type_keys(message + "{ENTER}", with_spaces=True)
 
