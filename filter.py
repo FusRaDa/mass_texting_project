@@ -50,7 +50,7 @@ def get_excel_data():
 
 
 def extract_numbers(phone_number):
-    result = re.sub('[^0-9]', '', phone_number)
+    result = re.sub('[^0-9]', '', str(phone_number))
 
     return result
 
@@ -102,10 +102,16 @@ def refine_excel_data(raw_data):
 
     final_list = list({v['number']: v for v in refined_list}.values())
 
+    invalid_number_list = []
+
     for x in range(len(final_list)):
         first_digit = final_list[x]['number'][0]
         if first_digit == "0":
             print(final_list[x]['number'])
+            invalid_number_list.append(final_list[x])
+
+    for x in range(len(invalid_number_list)):
+        final_list.remove(invalid_number_list[x])
 
     return final_list
 
