@@ -8,7 +8,7 @@ from pywinauto.application import Application
 
 # grasshopper desktop app must be launched and logged in
 
-excel_file_path = 'C:\\Users\\FusRada\\Desktop\\refined_contacts.xlsx'
+excel_file_path = 'C:\\Users\\FusRada\\Desktop\\test_sheet.xlsx'
 
 
 def get_list_of_number_and_name():
@@ -40,21 +40,9 @@ def get_list_of_number_and_name():
     return full_list
 
 
-def text_phone_number(application, number, name, row):
+def text_phone_number(application, number, name, text_message):
 
-    message_dict = {
-        1: " We are extending the AYP Convention Flash Sale till midnight tonight. Use CODE \"AYP20\" @ AYP.me/convention for $20 off your ticket. Check your email for more info & sign up by midnight! - AYP Team",
-        2: " Our Flash Sale for the AYP Convention has been extended till midnight tonight. Use CODE \"AYP20\" @ AYP.me/convention for $20 off your ticket. Check your email for more info & sign up today! - AYP Team",
-        3: " We are giving you one more day to use CODE \"AYP20\" @ AYP.me/convention for $20 off your convention ticket. Just sign up by midnight tonight - info is in your email inbox! - AYP Team",
-    }
-
-    row += 2
-
-    if row % 10 == 0:
-        print("rest for 2 min")
-        time.sleep(60)
-
-    message = str(name) + "!" + message_dict[random.randint(1, 3)]
+    message = str(name) + "!" + text_message
 
     send_message = application['Grasshopper App'].child_window(title="Send a Message",
                                                                control_type="DataItem").wrapper_object()
@@ -91,6 +79,15 @@ def text_phone_number(application, number, name, row):
 
 def begin_mass_texting(dict_list):
 
+    message_dict = {
+        0: "Just a friendly reminder that prices for the AYP Convention go up on July 1 (this weekend). Visit "
+           "AYP.me/Convention to register for just $104.99 today! Reach out if you have any questions!",
+        1: "Wanted to let you know that prices for the AYP Convention increase on July 1 (this weekend). Visit "
+           "AYP.me/Convention and register for just $104.99 today! Text back with any questions!",
+        2: "Ticket prices for the AYP Convention go up on July 1 (this weekend). Visit AYP.me/Convention to register "
+           "for just $104.99 today! Please share with friends and text back with any questions!",
+    }
+
     try:
         # start up
         app = Application(backend='uia').connect(title='Grasshopper App')
@@ -98,18 +95,18 @@ def begin_mass_texting(dict_list):
         messages_tab = app['Grasshopper App'].child_window(auto_id="messages", control_type="Custom").wrapper_object()
         messages_tab.click_input()
 
+        num = 0
         for i in range(len(dict_list)):
-            text_phone_number(app, dict_list[i]['number'], dict_list[i]['name'], i)
-            print("row " + str(i+2) + " has been processed")
+
+            if num == 3:
+                num = 0
+
+            text_phone_number(app, dict_list[i]['number'], dict_list[i]['name'], message_dict[num])
+            print("row " + str(i + 2) + " has been messaged")
+            num += 1
 
     except pywinauto.application.ProcessNotFoundError:
         print("failed to connect to app, grasshopper desktop app must be launched and logged in")
 
 
 begin_mass_texting(get_list_of_number_and_name())
-
-
-
-
-
-
