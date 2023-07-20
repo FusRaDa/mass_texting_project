@@ -80,12 +80,24 @@ def text_phone_number(application, number, name, text_message):
 def begin_mass_texting(dict_list):
 
     message_dict = {
-        0: " Just a friendly reminder that prices for the AYP Convention go up on July 1 (this weekend). Visit "
-           "AYP.me/Convention to register for just $104.99 today! Reach out if you have any questions!",
-        1: " Wanted to let you know that prices for the AYP Convention increase on July 1 (this weekend). Visit "
-           "AYP.me/Convention and register for just $104.99 today! Text back with any questions!",
-        2: " Ticket prices for the AYP Convention go up on July 1 (this weekend). Visit AYP.me/Convention to register "
-           "for just $104.99 today! Please share with friends and text back with any questions!",
+        0: " We are so excited that in a week from today you will come in to be a part of an experience to THRIVE to "
+           "the NEXT LEVEL. You all have been prayed for and we are thankful to God. I wanted to encourage you to "
+           "come early to take part in the Pre-Convention opportunity as a disciple of God being His hand and feet in "
+           "the community. We have exciting projects set up. To sign up, please go to "
+           "https://ayp.me/event/ayp-dallas-chapter-pre-convention-outreach/. Choose the area God compels you to "
+           "volunteer in. We look forward to having you join us. Let’s THRIVE together!",
+        1: " We are so excited that in a week from today you will come in to be a part of an experience to THRIVE to "
+           "the NEXT LEVEL. You all have been prayed for and we are thankful to God. I wanted to encourage you to "
+           "come early to take part in the Pre-Convention opportunity as a disciple of God being His hand and feet in "
+           "the community. We have exciting projects set up. To sign up, please go to "
+           "https://ayp.me/event/ayp-dallas-chapter-pre-convention-outreach/. Choose the area God compels you to "
+           "volunteer in. We look forward to having you join us. Let’s THRIVE together!",
+        2: " We are so excited that in a week from today you will come in to be a part of an experience to THRIVE to "
+           "the NEXT LEVEL. You all have been prayed for and we are thankful to God. I wanted to encourage you to "
+           "come early to take part in the Pre-Convention opportunity as a disciple of God being His hand and feet in "
+           "the community. We have exciting projects set up. To sign up, please go to "
+           "https://ayp.me/event/ayp-dallas-chapter-pre-convention-outreach/. Choose the area God compels you to "
+           "volunteer in. We look forward to having you join us. Let’s THRIVE together!",
     }
 
     try:

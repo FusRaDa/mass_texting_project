@@ -3,7 +3,7 @@ import openpyxl
 from openpyxl import Workbook
 
 # unrefined_contacts.xlsx
-path = 'C:\\Users\\FusRada\\Desktop\\unrefined_contacts.xlsx'
+path = 'C:\\Users\\FusRada\\Desktop\\pre-convention-contacts.xlsx'
 
 
 def create_new_excel_file(data_list):
